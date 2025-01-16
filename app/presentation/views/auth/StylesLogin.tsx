@@ -1,5 +1,6 @@
 import React from "react";
 import {StyleSheet} from "react-native";
+import {AppColors} from "../../themes/AppTheme";
 
 const styles = StyleSheet.create({
     container: {
@@ -33,10 +34,11 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         textAlign: 'center',
-        color: 'black',
+        color: AppColors.secondary,
         borderBottomWidth: 1,
-        borderBottomColor: 'black',
+        borderBottomColor: AppColors.secondary,
         paddingBottom: 9,
+        marginBottom: 10,
     },
     formInputContainer: {
         marginBottom: 20,
@@ -60,6 +62,10 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         color: 'white',
+    },
+    textLogin: {
+        textAlign: "center",
+        fontSize: 18,
     }
 });
 

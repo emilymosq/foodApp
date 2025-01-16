@@ -1,10 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import {Image, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
 import styles from "./StylesLogin";
 import {useNavigation} from "@react-navigation/native";
+import {RoundedButton} from "../../components/RoundedButton";
+import {FormInput} from "../../components/FormInput";
 
 function LoginScreen(){
     const navigation = useNavigation();
+
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+
     return (
         <View style={styles.container}>
 
@@ -17,41 +23,38 @@ function LoginScreen(){
             <View style={styles.loginContainer}>
                 <Text style={styles.loginText}>Iniciar Sesión</Text>
 
-                <View style={styles.formInputContainer}>
-                    <TextInput style={styles.formInput}
-                               placeholder={"Usuario"}
-                               keyboardType="default"
-                               secureTextEntry={false}
-                    ></TextInput>
-                </View>
+                <FormInput image={require("../../../../assets/email.png")}
+                           placeholder={"Correo electrónico"}
+                           keyboardType="email-address"
+                           secureTextEntry={false}
+                           onPressFormInterface={(text) => setEmail(text)}
+                >
+                </FormInput>
 
-                <View style={styles.formInputContainer}>
-                    <TextInput style={styles.formInput}
-                               placeholder={"Contraseña"}
-                               keyboardType="default"
-                               secureTextEntry={true}
-                    ></TextInput>
-                </View>
+                <FormInput image={require("../../../../assets/password.png")}
+                           placeholder={"Contraseña"}
+                           keyboardType="default"
+                           secureTextEntry={true}
+                           onPressFormInterface={(text) => setPassword(text)}                >
+                </FormInput>
 
-                <View>
-                    <TouchableOpacity style={styles.botonPersonalizado}
-                                      onPress={() => {ToastAndroid.show("Presionado Toast", ToastAndroid.LONG)}}>
-                        <Text style={styles.textoBotonPersonalizado}>Entrar</Text>
-                    </TouchableOpacity>
+               <View>
+                    <RoundedButton onPress={() => {alert("Hola")}} text={"INICIAR SESION"}/>
                 </View>
 
                 <View>
                     <TouchableOpacity style={{marginTop:30}}
                         onPress={() => {
-                            navigation.navigate("RegistroScreen")
+                            navigation.navigate("RegisterScreen");
                         }}>
-                        <Text>Registrarse</Text>
+                        <Text style={styles.textLogin}>Registrarse</Text>
                     </TouchableOpacity>
                 </View>
 
             </View>
 
         </View>
+
     );
 }
 
