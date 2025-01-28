@@ -4,12 +4,17 @@ import styles from "./StylesLogin";
 import {useNavigation} from "@react-navigation/native";
 import {RoundedButton} from "../../components/RoundedButton";
 import {FormInput} from "../../components/FormInput";
+import viewModel from "./ViewModel";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {RootStackParamList} from "../../../../App";
 
 function LoginScreen(){
-    const navigation = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const [email, setEmail] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+  //  const [email, setEmail] = useState<string>("");
+  //  const [password, setPassword] = useState<string>("");
+
+    const {email, password, onChangeLogin, login} = viewModel.LoginViewModel();
 
     return (
         <View style={styles.container}>
@@ -27,7 +32,7 @@ function LoginScreen(){
                            placeholder={"Correo electrónico"}
                            keyboardType="email-address"
                            secureTextEntry={false}
-                           onPressFormInterface={(text) => setEmail(text)}
+                           onPressFormInterface={(text) => onChangeLogin('email', text)}
                 >
                 </FormInput>
 
@@ -35,17 +40,20 @@ function LoginScreen(){
                            placeholder={"Contraseña"}
                            keyboardType="default"
                            secureTextEntry={true}
-                           onPressFormInterface={(text) => setPassword(text)}                >
+                           onPressFormInterface={(text) => onChangeLogin('password', text)}                >
                 </FormInput>
 
                <View>
-                    <RoundedButton onPress={() => {alert("Hola")}} text={"INICIAR SESION"}/>
-                </View>
+                    <RoundedButton onPress={() => {
+                        login();
+                        ToastAndroid.show("Login exitoso", ToastAndroid.SHORT);
+                    }} text={"Entrar"} />
+               </View>
 
                 <View>
                     <TouchableOpacity style={{marginTop:30}}
                         onPress={() => {
-                            navigation.navigate("RegisterScreen");
+                            navigation.navigate("RegistroScreen");
                         }}>
                         <Text style={styles.textLogin}>Registrarse</Text>
                     </TouchableOpacity>

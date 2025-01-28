@@ -1,27 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity, ToastAndroid} from "react-native";
 import styles from "./StylesRegister";
 import {useNavigation} from "@react-navigation/native";
 import {RoundedButton} from "../../components/RoundedButton";
-import {FormInput} from "../../components/FormInput";
+import { FormInput } from '../../components/FormInput';
+import viewModel from "./ViewModel";
+import {RootStackParamList} from "../../../../App";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
-function RegisterScreen(){
-    const navigation = useNavigation();
-
+function RegistroScreen(){
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const {email, password, firstName, lastName, phone, onChangeRegister, register} = viewModel.RegisterViewModel();
     return(
         <View style={styles.container}>
             <View style={styles.contenedorimagen}>
                 <Image source={require("../../../../assets/logo.png")} style={styles.imagen}></Image>
-                <Text style={styles.texto}>Formulario de Registro</Text>
+                <Text style={styles.texto}>Aplicación</Text>
             </View>
             <View style={styles.formContainer}>
                 <Text style={styles.formTitle}>Registrate</Text>
-
                 <FormInput
                     image={require("../../../../assets/user.png")}
                     placeholder={"Nombre"}
                     keyboardType="default"
                     secureTextEntry={false}
+                    onPressFormInterface={(text) => onChangeRegister("firstName", text)}
                 ></FormInput>
 
                 <FormInput
@@ -29,6 +32,7 @@ function RegisterScreen(){
                     placeholder={"Apellidos"}
                     keyboardType="default"
                     secureTextEntry={false}
+                    onPressFormInterface={(text) => onChangeRegister("lastName", text)}
                 ></FormInput>
 
                 <FormInput
@@ -36,6 +40,7 @@ function RegisterScreen(){
                     placeholder={"Correo electrónico"}
                     keyboardType="email-address"
                     secureTextEntry={false}
+                    onPressFormInterface={(text) => onChangeRegister("email", text)}
                 ></FormInput>
 
                 <FormInput
@@ -43,6 +48,7 @@ function RegisterScreen(){
                     placeholder={"Teléfono"}
                     keyboardType="numeric"
                     secureTextEntry={false}
+                    onPressFormInterface={(text) => onChangeRegister("phone", text)}
                 ></FormInput>
 
                 <FormInput
@@ -50,16 +56,13 @@ function RegisterScreen(){
                     placeholder={"Contraseña"}
                     keyboardType="default"
                     secureTextEntry={true}
-                ></FormInput>
-
-                <FormInput
-                    image={require("../../../../assets/confirm_password.png")}
-                    placeholder={"Repetir contraseña"}
-                    keyboardType="default"
-                    secureTextEntry={true}
+                    onPressFormInterface={(text) => onChangeRegister("password", text)}
                 ></FormInput>
                 <View>
-                    <RoundedButton onPress={() => {alert("Bienvenido")}} text={"REGISTRARSE"}/>
+                    <RoundedButton onPress={() => {
+                        register();
+                        ToastAndroid.show("Registro exitoso", ToastAndroid.SHORT);
+                    }} text={"REGISTRAR"} />
                 </View>
                 <View style={{marginTop: 20}}>
                     <TouchableOpacity onPress={() => {
@@ -73,4 +76,4 @@ function RegisterScreen(){
     );
 }
 
-export default RegisterScreen;
+export default RegistroScreen;
