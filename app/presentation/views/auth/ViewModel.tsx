@@ -31,6 +31,7 @@ const LoginViewModel = () => {
 }
 
 const RegisterViewModel = () => {
+    const [errorMessage, setErrorMessage] = useState<string>('')
     const [values, setValues] = useState({
         email: "",
         password: "",
@@ -44,24 +45,52 @@ const RegisterViewModel = () => {
         setValues({...values, [property]: value});
     }
 
-    const register = async () =>{
+    const register = async () => {
 
-     //   try{
-     //       const data = {
-     //           email: values.email,
-     //          firstName: values.nombre,
-     //           lastName: values.apellidos,
-     //           phone: values.telefono,
-     //           password: values.password,
-     //       }
+        //   try{
+        //       const data = {
+        //           email: values.email,
+        //          firstName: values.nombre,
+        //           lastName: values.apellidos,
+        //           phone: values.telefono,
+        //           password: values.password,
+        //       }
 
-            const response = await ResgisterAuthUseCase(values)
-            console.log("Result: " + JSON.stringify(response))
+        if (validateForm()) {
+        const response = await ResgisterAuthUseCase(values)
+        console.log("Result: " + JSON.stringify(response))
+        }
     }
+
+    const validateForm = () => {
+        if (values.firstName === "") {
+            setErrorMessage("El nombre es obligatorio")
+            return false;
+        }
+        if (values.lastName === "") {
+            setErrorMessage("El apellido es obligatorio")
+            return false;
+        }
+        if (values.email === "") {
+            setErrorMessage("El correo electronico es obligatorio")
+            return false;
+        }
+        if (values.phone === "") {
+            setErrorMessage("El número de telefono es obligatorio")
+            return false;
+        }
+        if (values.password === "") {
+            setErrorMessage("La contraseña es obligatoria")
+            return false;
+        }
+        return true
+    }
+
     return {
         ...values,
         onChangeRegister,
         register,
+        errorMessage
     }
 }
 

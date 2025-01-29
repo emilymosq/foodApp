@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity, ToastAndroid} from "react-native";
 import styles from "./StylesRegister";
 import {useNavigation} from "@react-navigation/native";
@@ -10,7 +10,22 @@ import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 
 function RegistroScreen(){
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const {email, password, firstName, lastName, phone, onChangeRegister, register} = viewModel.RegisterViewModel();
+    const {email,
+        password,
+        firstName,
+        lastName,
+        phone,
+        onChangeRegister,
+        register,
+        errorMessage
+    } = viewModel.RegisterViewModel()
+
+    useEffect(() => {
+        if (errorMessage != "") {
+            ToastAndroid.show(errorMessage, ToastAndroid.LONG)
+        }
+    }, [errorMessage])
+
     return(
         <View style={styles.container}>
             <View style={styles.contenedorimagen}>
@@ -61,7 +76,7 @@ function RegistroScreen(){
                 <View>
                     <RoundedButton onPress={() => {
                         register();
-                        ToastAndroid.show("Registro exitoso", ToastAndroid.SHORT);
+                      //ToastAndroid.show("Registro exitoso", ToastAndroid.SHORT);
                     }} text={"REGISTRAR"} />
                 </View>
                 <View style={{marginTop: 20}}>

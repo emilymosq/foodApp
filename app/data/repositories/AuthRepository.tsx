@@ -22,7 +22,7 @@ export class AuthRepositoryImpl implements AuthRepository {
 
     async login(user: UserLoginInterface) : Promise<ApiDeliveryResponse> {
         try {
-            const response = await ApiDelivery.post("/users/get-users", user)
+            const response = await ApiDelivery.post("/users/login", user)
             return Promise.resolve(response)
         }
         catch (error) {
