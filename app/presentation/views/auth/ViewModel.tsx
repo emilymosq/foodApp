@@ -1,7 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ApiDelivery} from "../../../data/source/remote/api/ApiDelivery";
 import {ResgisterAuthUseCase} from "../../../domain/useCases/auth/RegisterAuth";
 import {LoginAuthUseCase} from "../../../domain/useCases/auth/LoginAuth";
+import {UserLogin, UserLoginInterface} from "../../../domain/entities/User";
+import {saveUserUseCase} from "../../../domain/useCases/userLocal/SaveUser";
+import {getUserUseCase} from "../../../domain/useCases/userLocal/GetUser";
 
 const LoginViewModel = () => {
 
@@ -11,22 +14,53 @@ const LoginViewModel = () => {
     *
     * array[email] = value
     */
+    const [errorMessage, setErrorMessage] = useState<string>("")
 
     const [values, setValues] = useState({
         email: "",
         password: "",
     })
+    useEffect(() => {
+        getUserSession()
+    })
+    const getUserSession = async () => {
+        const getUser = await getUserUseCase();
+        console.log("Sesión del usuario: " + JSON.stringify(getUser));
+    }
+
     const onChangeLogin = (property: string, value: any) => {
         setValues({...values, [property]: value});
     }
-    const login = async () =>{
-        const response = await LoginAuthUseCase(values)
-        console.log("Result: " + JSON.stringify(response))
+
+    const login = async () => {
+        if (validateForm()) {
+            const response = await LoginAuthUseCase(values as UserLoginInterface)
+            console.log("Result: " + JSON.stringify(response))
+            if (!response.success) {
+                setErrorMessage(response.message)
+            } else {
+                await saveUserUseCase(response.data as UserLogin)
+            }
+        }
     }
+
+    const validateForm = () => {
+        if (values.email === "") {
+            setErrorMessage("El correo electronico es obligatorio")
+            return false;
+        }
+        if (values.password === "") {
+            setErrorMessage("La contraseña es obligatoria")
+            return false;
+        }
+        return true
+    }
+
     return {
         ...values,
         onChangeLogin,
-        login
+        login,
+        errorMessage
     }
 }
 
