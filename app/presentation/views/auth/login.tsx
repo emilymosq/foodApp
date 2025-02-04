@@ -5,22 +5,33 @@ import {useNavigation} from "@react-navigation/native";
 import {RoundedButton} from "../../components/RoundedButton";
 import {FormInput} from "../../components/FormInput";
 import viewModel from "./ViewModel";
-import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-import {RootStackParamList} from "../../../../App";
+import {PropsStackNavigation} from "../../interfaces/StackNav"
 
-function LoginScreen(){
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+
+export function LoginScreen({navigation, route}: PropsStackNavigation){
+  //  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   //  const [email, setEmail] = useState<string>("");
   //  const [password, setPassword] = useState<string>("");
 
-    const {email, password, onChangeLogin, login, errorMessage} = viewModel.LoginViewModel();
+    const {email, password, onChangeLogin, login, errorMessage, user} = viewModel.LoginViewModel();
 
     useEffect(() => {
         if (errorMessage != "")
             ToastAndroid.show(errorMessage, ToastAndroid.LONG)
     },
         [errorMessage])
+
+    useEffect(() => {
+        // En el momento que se abre la ventana esto se ejecuta y se comprueba si hay usuario.
+        // También, si se efectua un cambio en su estado se ejecuta y vuelve a comprobar.
+        if (user && user?.token) {
+            // El navigate te lleva a la siguiente pantalla
+            // El replace la reemplaza por la otra pantalla.
+            navigation.replace("RolesScreen")
+        }
+    }, [user]);
 
     return (
         <View style={styles.container}>

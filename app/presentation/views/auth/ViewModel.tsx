@@ -5,6 +5,7 @@ import {LoginAuthUseCase} from "../../../domain/useCases/auth/LoginAuth";
 import {UserLogin, UserLoginInterface} from "../../../domain/entities/User";
 import {saveUserUseCase} from "../../../domain/useCases/userLocal/SaveUser";
 import {getUserUseCase} from "../../../domain/useCases/userLocal/GetUser";
+import {useUserLocalStorage} from "../../hooks/useUserLocalStorage";
 
 const LoginViewModel = () => {
 
@@ -20,13 +21,8 @@ const LoginViewModel = () => {
         email: "",
         password: "",
     })
-    useEffect(() => {
-        getUserSession()
-    })
-    const getUserSession = async () => {
-        const getUser = await getUserUseCase();
-        console.log("Sesión del usuario: " + JSON.stringify(getUser));
-    }
+
+    const {user, getUserSession} = useUserLocalStorage();
 
     const onChangeLogin = (property: string, value: any) => {
         setValues({...values, [property]: value});
@@ -40,6 +36,7 @@ const LoginViewModel = () => {
                 setErrorMessage(response.message)
             } else {
                 await saveUserUseCase(response.data as UserLogin)
+                getUserSession()
             }
         }
     }
@@ -60,7 +57,8 @@ const LoginViewModel = () => {
         ...values,
         onChangeLogin,
         login,
-        errorMessage
+        errorMessage,
+        user
     }
 }
 
