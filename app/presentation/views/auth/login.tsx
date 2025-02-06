@@ -29,7 +29,7 @@ export function LoginScreen({navigation, route}: PropsStackNavigation){
         if (user && user?.token) {
             // El navigate te lleva a la siguiente pantalla
             // El replace la reemplaza por la otra pantalla.
-            navigation.replace("RolesScreen")
+            navigation.replace("AdminTabNavigator")
         }
     }, [user]);
 
