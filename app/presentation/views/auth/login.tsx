@@ -27,9 +27,13 @@ export function LoginScreen({navigation, route}: PropsStackNavigation){
         // En el momento que se abre la ventana esto se ejecuta y se comprueba si hay usuario.
         // También, si se efectua un cambio en su estado se ejecuta y vuelve a comprobar.
         if (user && user?.token) {
-            // El navigate te lleva a la siguiente pantalla
-            // El replace la reemplaza por la otra pantalla.
-            navigation.replace("AdminTabNavigator")
+            if(user.roles.length>1){
+                // El navigate te lleva a la siguiente pantalla
+                // El replace la reemplaza por la otra pantalla.
+                navigation.replace("RolesScreen")
+            } else{
+                navigation.replace("ClienteTabNavigator")
+            }
         }
     }, [user]);
 

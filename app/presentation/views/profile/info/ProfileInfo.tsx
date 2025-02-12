@@ -1,6 +1,7 @@
 import {Button, Text, View} from "react-native";
 import ViewModel from "./ViewModel";
 import {PropsStackNavigation} from "../../../interfaces/StackNav";
+import {AppFonts} from "../../../themes/AppTheme";
 
 
 export const ProfileInfoScreen = ({navigation, route}: PropsStackNavigation) => {
@@ -9,7 +10,7 @@ export const ProfileInfoScreen = ({navigation, route}: PropsStackNavigation) => 
 
     return (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Ventana de perfil</Text>
+            <Text style={{fontFamily: AppFonts.bold}}>Ventana de perfil</Text>
             <Button title={"Cerrar sesión"} onPress={
                 () => {
                     deleteSession();

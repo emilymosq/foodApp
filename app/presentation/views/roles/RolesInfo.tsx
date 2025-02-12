@@ -1,10 +1,13 @@
 import React, {useState} from "react";
 import {Button, Dimensions, FlatList, Text, View} from "react-native";
-import {PropsStackNavigation} from "../../interfaces/StackNav";
 import viewModel from "./ViewModel";
 import {RolesItem} from "./Item";
 import { GestureHandlerRootView} from "react-native-gesture-handler";
 import Carousel from "react-native-reanimated-carousel";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {RootStackParamList} from "../../../../App";
+
+interface PropsStackNavigation extends NativeStackScreenProps<RootStackParamList, "RolesScreen">{}
 
 export const RolesScreen = ({navigation, route}: PropsStackNavigation) => {
     const {user} = viewModel.RolesViewModel();
@@ -25,7 +28,7 @@ export const RolesScreen = ({navigation, route}: PropsStackNavigation) => {
                     scrollAnimationDuration={1000}
                     onSnapToItem={(index) => console.log('current index:', index)}
                     renderItem={({ item }) => (
-                        <RolesItem role={item} width={width - 100} height={420}></RolesItem>
+                        <RolesItem role={item} width={width - 100} height={420} navigation={navigation}></RolesItem>
                     )}
                 />
             </View>

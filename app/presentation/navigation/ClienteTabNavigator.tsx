@@ -1,30 +1,29 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {ProfileInfoScreen} from "../views/profile/info/ProfileInfo";
-import {RolesScreen} from "../views/roles/RolesInfo";
 import {Image} from "react-native";
-import {AdminCategoryListScreen} from "../views/admin/category/list/CategoryList";
-import {AdminOrderList} from "../views/admin/order/list/OrderList";
+import {ClienteCategoryList} from "../views/cliente/category/list/CategoryList";
+import {ClienteOrderList} from "../views/cliente/order/list/OrderList";
 
 const Tab = createBottomTabNavigator();
 
-export const AdminTabNavigator = () => {
+export const ClienteTabNavigator = () => {
     return (
         <Tab.Navigator>
-            <Tab.Screen name="AdminCategoryListScreen"
+            <Tab.Screen name="ClienteCategoryListScreen"
                         options={{title: "Lista de categorias",
-                        tabBarLabel: "Inicio",
-                        tabBarIcon: ({color}) => (
-                    <Image source={require("../../../assets/home.png")} style={{width: 25, height: 25}}/>
-                )
-                }} component={AdminCategoryListScreen} />
-            <Tab.Screen name="AdminOrderListScreen"
+                            tabBarLabel: "Inicio",
+                            tabBarIcon: ({color}) => (
+                                <Image source={require("../../../assets/home.png")} style={{width: 25, height: 25}}/>
+                            )
+                        }} component={ClienteCategoryList} />
+            <Tab.Screen name="ClienteOrderListScreen"
                         options={{
                             title: "Pedidos realizados",
                             tabBarLabel: "pedidos",
                             tabBarIcon: ({color}) => (
                                 <Image source={require("../../../assets/shopping_cart.png")} style={{width: 25, height: 25}}/>
                             )
-                        }} component={AdminOrderList} />
+                        }} component={ClienteOrderList} />
             <Tab.Screen name="Perfil"
                         options={{
                             title: "Mi perfil",
