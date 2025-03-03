@@ -18,6 +18,6 @@ export interface UserInterface {
 export type UserLoginInterface = Pick<UserInterface, "email" | "password">
 
 export interface UserLogin extends UserInterface {
-    token: string;
+        token: string;
     roles: RoleInterface[];
 }

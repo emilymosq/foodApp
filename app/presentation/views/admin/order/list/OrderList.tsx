@@ -1,9 +1,11 @@
 import {Text, View} from "react-native";
 
-export const AdminOrderList = ( ) => {
+const AdminOrderList = ( ) => {
     return(
         <View>
             <Text>Admin Order list</Text>
         </View>
     )
 }
+
+export default AdminOrderList;

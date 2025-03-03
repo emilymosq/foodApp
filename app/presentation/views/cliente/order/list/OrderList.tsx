@@ -1,9 +1,11 @@
 import {Text, View} from "react-native";
 
-export const ClienteOrderList = ( ) => {
+const ClienteOrderList = ( ) => {
     return(
         <View>
             <Text>Cliente Order list</Text>
         </View>
     )
 }
+
+export default ClienteOrderList;

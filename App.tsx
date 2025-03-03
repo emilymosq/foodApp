@@ -3,7 +3,6 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import LoginScreen from "./app/presentation/views/auth/login";
 import RegistroScreen from "./app/presentation/views/auth/registro";
-import {ProfileInfoScreen} from "./app/presentation/views/profile/info/ProfileInfo";
 import {RolesScreen} from "./app/presentation/views/roles/RolesInfo";
 import {AdminTabNavigator} from "./app/presentation/navigation/AdminTabNavigator";
 import {useFonts} from "expo-font";
@@ -21,15 +20,15 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
-    const [fontsLoaded] = useFonts({
-        'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
-        'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
-        'Poppins-light': require('./assets/fonts/Poppins-Light.ttf'),
-        'Poppins-Medium': require('./assets/fonts/Poppins-Medium.ttf')
-    });
-    if (!fontsLoaded) {
-        return <ActivityIndicator size={"large"} color={"#000"}></ActivityIndicator>
-    }
+    // const [fontsLoaded] = useFonts({
+    //     'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
+    //     'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
+    //     'Poppins-light': require('./assets/fonts/Poppins-Light.ttf'),
+    //     'Poppins-Medium': require('./assets/fonts/Poppins-Medium.ttf')
+    // });
+    // if (!fontsLoaded) {
+    //     return <ActivityIndicator size={"large"} color={"#000"}></ActivityIndicator>
+    // }
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
