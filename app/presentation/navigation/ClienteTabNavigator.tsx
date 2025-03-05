@@ -4,6 +4,7 @@ import {Image} from "react-native";
 import ClienteCategoryList from "../views/cliente/category/list/CategoryList";
 import ClienteOrderList from "../views/cliente/order/list/OrderList";
 
+
 const Tab = createBottomTabNavigator();
 
 export const ClienteTabNavigator = () => {

@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
 export class ProductRepositoryImpl implements ProductRepository {
     async getAllProducts(): Promise<Product[]> {
         try {
-            const response = await ApiDelivery.get("/products");
+            const response = await ApiDelivery.get<Product[]>("/products");
             return Promise.resolve(response.data);
         } catch (error) {
             let e = error as AxiosError;

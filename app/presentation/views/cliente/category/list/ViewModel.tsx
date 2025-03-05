@@ -8,21 +8,12 @@ export const useProductViewModel = () => {
 
     const getProducts = async () => {
         try {
-            const response: Product[] = await GetProductsUseCase();
+            const response = await GetProductsUseCase();
             setProducts(response);
         } catch (error) {
             console.error("Error al cargar los productos" + error);
         }
     };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            await getProducts();
-            setLoading(false);
-        };
-
-        fetchData();
-    },[]);
 
     return {
         products,

@@ -1,6 +1,6 @@
 import {Text, View} from "react-native";
 
-const AdminCategoryListScreen = ( ) => {
+export const AdminCategoryListScreen = ( ) => {
     return(
         <View>
             <Text>Admin Category list</Text>
@@ -8,4 +8,3 @@ const AdminCategoryListScreen = ( ) => {
     )
 }
 
-export default AdminCategoryListScreen;

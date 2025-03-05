@@ -2,7 +2,7 @@ import { Product } from "../../../../../domain/entities/Product";
 import { Image, Text, View, StyleSheet } from "react-native";
 import React from "react";
 
-export const renderItem = ({ item }: { item: Product }) => (
+const renderItem = ({ item }: { item: Product }) => (
     <View style={styles.productoContainer}>
         <View style={styles.info}>
             <Text style={styles.nombre}>{item.name}</Text>
@@ -46,3 +46,5 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
 });
+
+export default renderItem;
